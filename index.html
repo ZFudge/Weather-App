@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Weather</title>
+	<title>Weather App</title>
 	<link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="weather.css">
 </head>
 <body>
-	<p id='response'></p>
-	<img id='icon' src=''>
-	<p id='temp'></p>
-	<button onclick='update()'>Update</button>
+	<div id='container'>
+		<h2 id='location'></h2>
+		<img id='icon' src=''>
+		<p id='description'></p>
+		<p id='temp'></p>
+		<p id='high-low'></p>
+		<p id='humidity'></p>
+		<p id='wind'></p>
+	</div>
 	<script type="text/javascript" src='weather.js'></script>
 </body>
 </html>
