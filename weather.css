@@ -1,0 +1,20 @@
+body {
+	transition-duration: 4s;
+}
+
+#container {
+	font-family: 'Montserrat', sans-serif;
+	margin: 80px auto;
+	padding: 20px;
+	border-radius: 5px;
+	width: 500px;
+	text-align: center;
+	cursor: default;
+	user-select: none;
+	color: #FEFEFE;
+}
+
+h2 {
+	font-family: 'Montserrat', sans-serif;
+}
+
