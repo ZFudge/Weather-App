@@ -40,20 +40,19 @@ const sections = {
   location: () => weather.location.innerHTML = `${app.response.name}, ${app.response.sys.country}`,
   description: () => weather.description.innerHTML = app.response.weather[0].main,
   img: () => weather.icon.src = app.response.weather[0].icon,
-  temp: () => weather.temp.innerHTML = `Current: ${sections.detTemp(app.response.main.temp)}&#176;`,
-  highLow: () => weather.highLow.innerHTML = `H: ${sections.detTemp(app.response.main.temp_max)}&#176; L: ${sections.detTemp(app.response.main.temp_min)}&#176;`,
+  temp: () => weather.temp.innerHTML = `Current ${sections.detTemp(app.response.main.temp)}&#176;`,
+  highLow: () => weather.highLow.innerHTML = `High ${sections.detTemp(app.response.main.temp_max)}&#176; Low ${sections.detTemp(app.response.main.temp_min)}&#176;`,
   createSpan: (d) => `<span onclick='sections.convertTemps()' style='cursor:pointer;'>${d}</span>`,
   detTemp: (c) => (weather.fahrenheit) ? `${(c * (9/5) + 32).toFixed(1)} ${sections.createSpan("F")}` : `${c} ${sections.createSpan("C")}`,
-  humidity: () => weather.humidity.innerHTML = `Humidity: ${app.response.main.humidity}%`,
+  humidity: () => weather.humidity.innerHTML = `Humidity ${app.response.main.humidity}%`,
   wind: function() {
-    const deg = app.response.wind.deg;
     const arrow = document.createElement('img');
     arrow.src = 'arrow.png';
     arrow.id = 'arrow';
-    arrow.style.transform = `rotate(${deg}deg)`;
-    weather.wind.innerHTML = `Wind: ${app.response.wind.speed} MPH ${Math.round(deg)}&#176; `;
+    arrow.style.transform = `rotate(${app.response.wind.deg}deg)`;
+    weather.wind.innerHTML = `Wind ${app.response.wind.speed.toFixed(1)} MPH `;
     weather.wind.appendChild(arrow);
-    weather.wind.innerHTML += ` ${sections.windDirection(deg)}`;
+    weather.wind.innerHTML += ` ${sections.windDirection(app.response.wind.deg)}`;
   },
   windDirection: (deg) => (deg<22||deg>=337)?"N":(deg<67)?"NE":(deg<112)?"E":(deg<157)?"SE":(deg<202)?"S":(deg<247)?"SW":(deg<292)?"W":(deg<337)?"NW":null,
   colorize: () => document.body.style.backgroundColor = sections.assignColor(weather.colors[app.response.weather[0].main]),
