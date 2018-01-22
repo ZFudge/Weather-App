@@ -26,7 +26,7 @@ const weather = {
   highLow: document.getElementById('high-low'),
   humidity: document.getElementById('humidity'),
   wind: document.getElementById('wind'),
-  fahrenheit: true,
+  metric: false,
   colors: {
     "Clear": "#07AEE6",
     "Clouds": "#555",
@@ -43,24 +43,26 @@ const sections = {
   temp: () => weather.temp.innerHTML = `Current ${sections.detTemp(app.response.main.temp)}&#176;`,
   highLow: () => weather.highLow.innerHTML = `High ${sections.detTemp(app.response.main.temp_max)}&#176; Low ${sections.detTemp(app.response.main.temp_min)}&#176;`,
   createSpan: (d) => `<span onclick='sections.convertTemps()' style='cursor:pointer;'>${d}</span>`,
-  detTemp: (c) => (weather.fahrenheit) ? `${(c * (9/5) + 32).toFixed(1)} ${sections.createSpan("F")}` : `${c} ${sections.createSpan("C")}`,
+  detTemp: (c) => (weather.metric) ? `${c} ${sections.createSpan("<strong>C</strong>")}` : `${(c * (9/5) + 32).toFixed(1)} ${sections.createSpan("<strong>F</strong>")}`,
   humidity: () => weather.humidity.innerHTML = `Humidity ${app.response.main.humidity}%`,
   wind: function() {
     const arrow = document.createElement('img');
     arrow.src = 'arrow.png';
     arrow.id = 'arrow';
     arrow.style.transform = `rotate(${app.response.wind.deg}deg)`;
-    weather.wind.innerHTML = `Wind ${app.response.wind.speed.toFixed(1)} MPH `;
+    weather.wind.innerHTML = `Wind ${sections.windSpeed(app.response.wind.speed)} `;
     weather.wind.appendChild(arrow);
     weather.wind.innerHTML += ` ${sections.windDirection(app.response.wind.deg)}`;
   },
+  windSpeed: (speed) => (weather.metric) ? `${(speed * 1.6).toFixed(1)} KPH` : `${speed.toFixed(1)} MPH`,
   windDirection: (deg) => (deg<22||deg>=337)?"N":(deg<67)?"NE":(deg<112)?"E":(deg<157)?"SE":(deg<202)?"S":(deg<247)?"SW":(deg<292)?"W":(deg<337)?"NW":null,
   colorize: () => document.body.style.backgroundColor = sections.assignColor(weather.colors[app.response.weather[0].main]),
   assignColor: (color) => color = color || "#222",
   convertTemps: function() {
-    weather.fahrenheit = !weather.fahrenheit;
+    weather.metric = !weather.metric;
     sections.temp();
     sections.highLow();
+    sections.wind();
   }
 }
 
