@@ -1,5 +1,5 @@
 body {
-	transition-duration: 4s;
+	transition-duration: 2.5s;
 }
 
 #container {
@@ -19,3 +19,7 @@ h1 {
 	display: inline-block;
 }
 
+#arrow {
+	height: 22px;
+	width: 22px;
+}
