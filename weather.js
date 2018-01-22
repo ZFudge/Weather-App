@@ -31,7 +31,7 @@ const weather = {
     "Clear": "#07AEE6",
     "Clouds": "#555",
     "Haze": "#A5B3A2",
-    "Snow": "#636363",
+    "Snow": "#333",
     "Rain": "#141499"
   }
 };
@@ -45,7 +45,16 @@ const sections = {
   createSpan: (d) => `<span onclick='sections.convertTemps()' style='cursor:pointer;'>${d}</span>`,
   detTemp: (c) => (weather.fahrenheit) ? `${(c * (9/5) + 32).toFixed(1)} ${sections.createSpan("F")}` : `${c} ${sections.createSpan("C")}`,
   humidity: () => weather.humidity.innerHTML = `Humidity: ${app.response.main.humidity}%`,
-  wind: () => weather.wind.innerHTML = `Wind: ${app.response.wind.speed} MPH ${Math.round(app.response.wind.deg)}&#176; ${sections.windDirection(app.response.wind.deg)}`,
+  wind: function() {
+    const deg = app.response.wind.deg;
+    const arrow = document.createElement('img');
+    arrow.src = 'arrow.png';
+    arrow.id = 'arrow';
+    arrow.style.transform = `rotate(${deg}deg)`;
+    weather.wind.innerHTML = `Wind: ${app.response.wind.speed} MPH ${Math.round(deg)}&#176; `;
+    weather.wind.appendChild(arrow);
+    weather.wind.innerHTML += ` ${sections.windDirection(deg)}`;
+  },
   windDirection: (deg) => (deg<22||deg>=337)?"N":(deg<67)?"NE":(deg<112)?"E":(deg<157)?"SE":(deg<202)?"S":(deg<247)?"SW":(deg<292)?"W":(deg<337)?"NW":null,
   colorize: () => document.body.style.backgroundColor = sections.assignColor(weather.colors[app.response.weather[0].main]),
   assignColor: (color) => color = color || "#222",
