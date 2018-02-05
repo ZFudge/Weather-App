@@ -1,11 +1,7 @@
 ("geolocation" in navigator) ? console.log('geolocation available') : alert('Geolocation is not supported in this browser.');
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  navigator.geolocation.getCurrentPosition((pos) => app.position = pos);
-  navigator.geolocation.watchPosition(() => update(), () => alert('There was an issue determining your location.'));
-});
-
 const app = {
+  position: null,
   main: function() {
     sections.location();
     sections.description();
@@ -77,3 +73,24 @@ function update() {
   xhr.open("GET", `https://fcc-weather-api.glitch.me/api/current?lat=${(app.position.coords.latitude).toFixed(2)}&lon=${(app.position.coords.longitude).toFixed(2)}`);
   xhr.send();
 }
+
+function getWeather() {
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    app.position = pos;
+    navigator.geolocation.watchPosition(
+      function() {
+        update();
+      }, 
+      function() {
+        alert('There was an issue determining your location.')
+      },
+      {
+        enableHighAccuracy: true, 
+        maximumAge        : 30000, 
+        timeout           : 27000
+      }
+  );
+  });
+}
+
+window.addEventListener("load", getWeather);
