@@ -41,13 +41,10 @@ const sections = {
   createSpan: (d) => `<span onclick='sections.convertTemps()' style='cursor:pointer;'>${d}</span>`,
   detTemp: (c) => (weather.metric) ? `${c} ${sections.createSpan("<strong>C</strong>")}` : `${(c * (9/5) + 32).toFixed(1)} ${sections.createSpan("<strong>F</strong>")}`,
   humidity: () => weather.humidity.innerHTML = `Humidity ${app.response.main.humidity}%`,
+  arrow: document.getElementById('arrow'),
   wind: function() {
-    const arrow = document.createElement('img');
-    arrow.src = 'arrow.png';
-    arrow.id = 'arrow';
-    arrow.style.transform = `rotate(${app.response.wind.deg}deg)`;
+    this.arrow.style.transform = `rotate(${app.response.wind.deg}deg)`;
     weather.wind.innerHTML = `Wind ${sections.windSpeed(app.response.wind.speed)} `;
-    weather.wind.appendChild(arrow);
     weather.wind.innerHTML += ` ${sections.windDirection(app.response.wind.deg)}`;
   },
   windSpeed: (speed) => (weather.metric) ? `${(speed * 1.6).toFixed(1)} KPH` : `${speed.toFixed(1)} MPH`,
