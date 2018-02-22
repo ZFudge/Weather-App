@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="weather.css">
 </head>
 <body>
+	<div id="nav-placeholder"></div>
 	<div id='container'>
 		<h1 id='location'></h1>
 		<img id='icon' src=''>
@@ -15,8 +16,14 @@
 		<p id='temp'></p>
 		<p id='high-low'></p>
 		<p id='humidity'></p>
-		<p id='wind'></p>
+		<p id="wind-container">
+			<span id="wind"></span>
+			<img id="arrow" src="arrow.svg">
+		</p>
 	</div>
 	<script type="text/javascript" src='weather.js'></script>
+	<script type="text/javascript">
+		document.getElementById('nav-placeholder').innerHTML = '<object type="text/html" data="../nav.html" ></object>';
+	</script>
 </body>
 </html>

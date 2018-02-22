@@ -5,10 +5,12 @@ body, html {
 	height: 100%;
 }
 
-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#nav-placeholder {
+  width: 30em;
+  margin: 0 auto;
+}
+#nav-placeholder object {
+  width: 30em;
 }
 
 #container {
@@ -17,6 +19,9 @@ body {
 	border-radius: 5px;
 	text-align: center;
 	cursor: default;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 	color: #FEFEFE;
 	font-family: 'Roboto', sans-serif;
@@ -28,7 +33,18 @@ h1 {
 	display: inline-block;
 }
 
+#wind-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#wind {
+    margin-right: 1em;
+}
+
 #arrow {
-	height: 22px;
-	width: 22px;
+	transition-duration: 4s;
+	height: 1.5em;
+	width: 1.5em;
 }
